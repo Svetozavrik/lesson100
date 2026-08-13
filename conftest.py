@@ -1,21 +1,27 @@
-"""Фикстуры и тестовые данные для дипломного проекта"""
+"""
+Фикстуры и тестовые данные для дипломного проекта
+"""
 
-
+import os
 import pytest
 import requests
 import time
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+# Загружаем переменные окружения из файла .env
+load_dotenv()
 
 
 BASE_URL = "https://skyeng.ru"
 API_URL = "https://api-teachers.skyeng.ru/v2"
 
 
-LOGIN = "test.tst317@skyeng.ru"
-PASSWORD = "Abc1234567890"
+LOGIN = os.getenv("LOGIN", "test.tst317@skyeng.ru")
+PASSWORD = os.getenv("PASSWORD", "Abc1234567890")
 
 
 def unique_title(prefix="Событие"):
@@ -31,7 +37,6 @@ LESSON_DATA = {
     "student": "Светлана Баженова",
     "subject": "Математика"
 }
-
 EVENT_DATA = {
     "title": "Личное событие",
     "date": "2026-08-15",
@@ -39,7 +44,6 @@ EVENT_DATA = {
     "time_end": "11:00",
     "description": "Встреча с коллегами"
 }
-
 UPDATED_EVENT_DATA = {
     "title": "Обновленное событие",
     "date": "2026-08-16",
@@ -47,7 +51,6 @@ UPDATED_EVENT_DATA = {
     "time_end": "15:00",
     "description": "Семинар"
 }
-
 PAST_EVENT_DATA = {
     "title": "Событие в прошлом",
     "date": "2020-01-01",
@@ -55,8 +58,6 @@ PAST_EVENT_DATA = {
     "time_end": "11:00",
     "description": "Это событие уже прошло"
 }
-
-
 SELECTORS = {
     "add_btn": "button.add-event, .create-event-btn",
     "save_btn": "button.save-event, .submit-btn",
@@ -75,7 +76,6 @@ SELECTORS = {
     "success_msg": ".success, .toast-success",
     "error_msg": ".error, .toast-error",
 }
-
 WAIT = {"fast": 3, "medium": 10, "slow": 30}
 
 
