@@ -12,16 +12,28 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Загружаем переменные окружения из файла .env
 load_dotenv()
 
 
-BASE_URL = "https://skyeng.ru"
-API_URL = "https://api-teachers.skyeng.ru/v2"
+def get_required_env(var_name: str) -> str:
+    """Получает значение переменной окружения или выбрасывает ошибку"""
+    value = os.getenv(var_name)
+    if not value:
+        raise EnvironmentError(
+            f"Переменная окружения {var_name} не установлена.\n"
+            f"Создайте файл .env с содержимым:\n"
+            f"LOGIN=ваш_логин@skyeng.ru\n"
+            f"PASSWORD=ваш_пароль"
+        )
+    return value
 
 
-LOGIN = os.getenv("LOGIN", "test.tst317@skyeng.ru")
-PASSWORD = os.getenv("PASSWORD", "Abc1234567890")
+LOGIN = get_required_env("LOGIN")
+PASSWORD = get_required_env("PASSWORD")
+
+
+BASE_URL = os.getenv("BASE_URL", "https://skyeng.ru")
+API_URL = os.getenv("API_URL", "https://api-teachers.skyeng.ru/v2")
 
 
 def unique_title(prefix="Событие"):
